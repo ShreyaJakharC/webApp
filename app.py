@@ -27,7 +27,11 @@ connection = pymongo.MongoClient(config['MONGO_HOST'], 27017,
                                 password=config['MONGO_PASSWORD'],
                                 authSource=config['MONGO_DBNAME'])
 db = connection[config['MONGO_DBNAME']] # store a reference to the database
-
+'''
+url = "mongodb+srv://sc8941:<Happyuion>@databasewebapp.h90wse9.mongodb.net/?retryWrites=true&w=majority"
+connection = pymongo.MongoClient(url)
+db = connection[config['sc8941']]
+'''
 # set up the routes
 
 @app.route('/')
