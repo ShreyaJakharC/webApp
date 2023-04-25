@@ -73,7 +73,7 @@ def login():
     """
     return render_template('login.html') # render the create template
 
-
+'''
 @app.route('/create', methods=['POST'])
 def create_login():
     """
@@ -153,7 +153,7 @@ def logout():
 def unauthorized_handler():
     return 'Unauthorized', 401
 
-
+'''
 
 
 
