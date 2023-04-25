@@ -123,12 +123,14 @@ def request_loader(request):
 def login():
     if flask.request.method == 'GET':
         return '''
-               <form action='login' method='POST'>
+'''
+                <form action='login' method='POST'>
                 <input type='text' name='email' id='email' placeholder='email'/>
                 <input type='password' name='password' id='password' placeholder='password'/>
                 <input type='submit' name='submit'/>
                </form>
                '''
+'''
 
     email = flask.request.form['email']
     if email in db_1 and flask.request.form['password'] == db_1[email]['password']:
