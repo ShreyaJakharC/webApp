@@ -1,8 +1,13 @@
 {% extends 'base.html' %} {% block container %}
 <h2>Login</h2>
-<p>Please Login in to continue.</p>
+<p>Please create an account.</p>
 <form method="POST" action="{{ url_for('create_login') }}">
   <p>Email: <input type="text" id="femail" name="femail" /><br /></p>
   <p>Password: <input type="text" id="floginpassword" name="floginpassword" /><br /></p>
+
+  <p>
+    <a href="{{ url_for('home')}}">Cancel</a>
+    <input type="submit" name="post-btn" value="Create" />
+  </p>
 </form>
 {% endblock %}
