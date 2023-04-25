@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from collections import UserString
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from markupsafe import escape
 import pymongo
@@ -7,10 +8,11 @@ import datetime
 from bson.objectid import ObjectId
 import os
 import subprocess
-import flask_login
+
 
 # instantiate the app
 app = Flask(__name__)
+
 
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
@@ -28,15 +30,14 @@ connection = pymongo.MongoClient(config['MONGO_HOST'], 27017,
                                 password=config['MONGO_PASSWORD'],
                                 authSource=config['MONGO_DBNAME'])
 db = connection[config['MONGO_DBNAME']] # store a reference to the database
-db_1 = connection[config['MONGO_DBNAME']] # store a reference to the database
+db1 = connection[config['MONGO_DBNAME']] # store a reference to the database
+
 '''
 url = "mongodb+srv://sc8941:<Happyuion>@databasewebapp.h90wse9.mongodb.net/?retryWrites=true&w=majority"
 connection = pymongo.MongoClient(url)
 db = connection[config['sc8941']]
 '''
 
-login_manager = flask_login.LoginManager()
-login_manager.init_app(app)
 
 # set up the routes
 @app.route('/')
@@ -57,15 +58,33 @@ def read():
     return render_template('read.html', docs=docs) # render the read template
 
 
-@app.route('/create')
-def create():
+@app.route('/signin')
+def signin():
     """
     Route for GET requests to the create page.
     Displays a form users can fill out to create a new document.
     """
-    return render_template('create.html') # render the create template
+    return render_template('signin.html') # render the create template
 
-@app.route('/create')
+@app.route('/signin', methods=['POST'])
+def create_signin():
+    """
+    Route for POST requests to the create page.
+    Accepts the form submission data for a new document and saves the document to the database.
+    """
+    email = request.form['semail']
+    password = request.form['sloginpassword']
+
+    user = db1.users.find_one({'username': email, 'password': password})
+
+    if user:
+        # Redirect to the home page
+        return redirect(url_for('home'))
+    else:
+        # Show an error message
+        return render_template('signin.html', error='Invalid username or password')
+
+@app.route('/login')
 def login():
     """
     Route for GET requests to the create page.
@@ -73,89 +92,31 @@ def login():
     """
     return render_template('login.html') # render the create template
 
-'''
-@app.route('/create', methods=['POST'])
+
+@app.route('/login', methods=['POST'])
 def create_login():
     """
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
-    name = request.form['femail']
-    password_l = request.form['floginpassword']
-
-
+    email = request.form['femail']
+    password = request.form['floginpassword']
     # create a new document with the data the user entered
-    doc = {
-        "email": name,
-        "password": password_l, 
-        "created_at": datetime.datetime.utcnow()
+    users = {
+        email: password
     }
-    db_1.exampleapp.insert_one(doc) # insert a new document
-
-    return #Take in to all the information in the database.
-
-
-class User(flask_login.UserMixin):
-    pass
-
-@login_manager.user_loader
-def user_loader(email):
-    if email not in db_1:
-        return
-
-    user = User()
-    user.id = email
-    return user
+    db1.exampleapp.insert_one(users) # insert a new document
+    return redirect(url_for('home')) # tell the browser to make a request for the /read route
 
 
-@login_manager.request_loader
-def request_loader(request):
-    email = request.form.get('email')
-    if email not in db_1:
-        return
 
-    user = User()
-    user.id = email
-    return user
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if flask.request.method == 'GET':
-        return '''
-'''
-                <form action='login' method='POST'>
-                <input type='text' name='email' id='email' placeholder='email'/>
-                <input type='password' name='password' id='password' placeholder='password'/>
-                <input type='submit' name='submit'/>
-               </form>
-               '''
-'''
-
-    email = flask.request.form['email']
-    if email in db_1 and flask.request.form['password'] == db_1[email]['password']:
-        user = User()
-        user.id = email
-        flask_login.login_user(user)
-        return flask.redirect(flask.url_for('protected'))
-
-    return 'Bad login'
-
-@app.route('/protected')
-@flask_login.login_required
-def protected():
-    return 'Logged in as: ' + flask_login.current_user.id
-
-@app.route('/logout')
-def logout():
-    flask_login.logout_user()
-    return 'Logged out'
-
-@login_manager.unauthorized_handler
-def unauthorized_handler():
-    return 'Unauthorized', 401
-
-'''
+@app.route('/create')
+def create():
+    """
+    Route for GET requests to the create page.
+    Displays a form users can fill out to create a new document.
+    """
+    return render_template('create.html') # render the create template
 
 @app.route('/create', methods=['POST'])
 def create_post():
@@ -222,9 +183,6 @@ def delete(mongoid):
     db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
     return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
 
-
-
-\
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
