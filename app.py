@@ -75,7 +75,7 @@ def create_signin():
     email = request.form['semail']
     password = request.form['sloginpassword']
 
-    user = db1.users.find_one({'username': email, 'password': password})
+    user = db.exampleapp.find_one({'username': email, 'password': password})
 
     if user:
         # Redirect to the home page
