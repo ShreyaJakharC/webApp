@@ -157,12 +157,6 @@ def unauthorized_handler():
 
 '''
 
-
-
-
-
-
-
 @app.route('/create', methods=['POST'])
 def create_post():
     """
@@ -201,8 +195,6 @@ def edit_post(mongoid):
     Accepts the form submission data for the specified document and updates the document in the database.
     """
     name = request.form['fapplication']
-    
-
     message = request.form['fmessage']
     
 
