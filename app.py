@@ -75,7 +75,7 @@ def create_signin():
     email = request.form['semail']
     password = request.form['sloginpassword']
 
-    user = db.exampleapp.find({'username': email, 'password': password})
+    user = db.info.find({'username': email, 'password': password})
 
     if user:
         # Redirect to the home page
@@ -105,7 +105,7 @@ def create_login():
     users = {
         email: password
     }
-    db1.exampleapp.insert_one(users) # insert a new document
+    db.info.insert_one(users) # insert a new document
     return redirect(url_for('home')) # tell the browser to make a request for the /read route
 
 
