@@ -2,10 +2,12 @@
 <h2>Create</h2>
 <p>Create a new record in the MongoDB database collection.</p>
 <form method="POST" action="{{ url_for('create_post') }}">
+  <p>Username(same as the login): <input type="text" id="fusername" name="username" /><br /></p>
+
   <p>Application: <input type="text" id="fapplication" name="fapplication" /><br /></p>
   
   <p>
-    Message:
+    Password:
     <textarea type="text" id="fmessage" name="fmessage"></textarea>
   </p>
   <p>

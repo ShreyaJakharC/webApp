@@ -18,6 +18,7 @@ This command creates a new virtual environment with the name `.venv`:
 
 ```bash
 python3 -m venv .venv
+
 ```
 
 #### Activate the virtual environment
