@@ -82,7 +82,7 @@ def create_signin():
         return redirect(url_for('home'))
     else:
         # Show an error message
-        return render_template('login.html', error='Invalid username or password')
+        return redirect(url_for('login'))
 
 @app.route('/login')
 def login():
