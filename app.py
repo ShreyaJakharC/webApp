@@ -103,7 +103,9 @@ def create_login():
     password = request.form['floginpassword']
     # create a new document with the data the user entered
     users = {
-        email: password
+        # "_id": ObjectId(mongoid), 
+        "email": email, 
+        "message": password, 
     }
     db.info.insert_one(users) # insert a new document
     return redirect(url_for('home')) # tell the browser to make a request for the /read route
