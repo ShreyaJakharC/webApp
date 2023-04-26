@@ -75,14 +75,14 @@ def create_signin():
     email = request.form['semail']
     password = request.form['sloginpassword']
 
-    user = db.info.find({'username': email, 'password': password})
+    user = db.info.find_one({'username': email, 'password': password})
 
     if user:
         # Redirect to the home page
         return redirect(url_for('home'))
     else:
         # Show an error message
-        return redirect(url_for('login'))
+        return render_template('login.html', error='Invalid email or password')
 
 @app.route('/login')
 def login():
@@ -109,6 +109,7 @@ def create_login():
     }
     db.info.insert_one(users) # insert a new document
     return redirect(url_for('home')) # tell the browser to make a request for the /read route
+
 
 
 
