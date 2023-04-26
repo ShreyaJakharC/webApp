@@ -10,6 +10,8 @@ import os
 import subprocess
 
 
+
+
 # instantiate the app
 app = Flask(__name__)
 
@@ -72,17 +74,19 @@ def create_signin():
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
+    users = pymongo.MongoClient
     email = request.form['semail']
     password = request.form['sloginpassword']
-
-    user = db.info.find_one({'username': email, 'password': password})
+    
+    user = users.db.info.find_one({'username': email, 'password': password})
 
     if user:
         # Redirect to the home page
-        return render_template('create.html')
+        return redirect(url_for('create'))
     else:
         # Show an error message
         return render_template('login.html', error='Invalid email or password')
+
 
 @app.route('/login')
 def login():
@@ -105,7 +109,7 @@ def create_login():
     users = {
         # "_id": ObjectId(mongoid), 
         "email": email, 
-        "message": password, 
+        "password": password, 
     }
     db.info.insert_one(users) # insert a new document
     return redirect(url_for('home')) # tell the browser to make a request for the /read route
@@ -126,12 +130,15 @@ def create_post():
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
+    username = request.form["fusername"]
     name = request.form['fapplication']
     message = request.form['fmessage']
 
 
+
     # create a new document with the data the user entered
     doc = {
+        "username": username,
         "name": name,
         "message": message, 
         "created_at": datetime.datetime.utcnow()
@@ -157,12 +164,14 @@ def edit_post(mongoid):
     Route for POST requests to the edit page.
     Accepts the form submission data for the specified document and updates the document in the database.
     """
+    username = request.form["fusername"]
     name = request.form['fapplication']
     message = request.form['fmessage']
     
 
     doc = {
         # "_id": ObjectId(mongoid), 
+        "username": username,
         "name": name, 
         "message": message, 
         "created_at": datetime.datetime.utcnow()
@@ -215,5 +224,6 @@ def handle_error(e):
 
 if __name__ == "__main__":
     #import logging
+
     #logging.basicConfig(filename='/home/ak8257/error.log',level=logging.DEBUG)
     app.run(debug = True)
