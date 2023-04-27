@@ -2,7 +2,28 @@
 
 {% block container %}
 <h2>Read</h2>
-<p>This page shows information pulled from a MongoDB database collection.<a href="{{ url_for('create')}}">Create a post</a>
+<p>
+    Boston is a historic city located in the northeastern region of the United States, in the state 
+    of Massachusetts. It is the capital city of Massachusetts and is one of the oldest cities in the 
+    United States, with a rich history dating back to the colonial era.
+    <br>
+    Boston is known for its iconic landmarks, such as the Freedom Trail, a 2.5-mile-long path 
+    that passes by 16 historical sites and attractions, including the Massachusetts State House, 
+    Paul Revere House, and the Old North Church. Other popular landmarks in Boston include the Boston 
+    Common, Fenway Park, the USS Constitution Museum, and the Boston Tea Party Ships and Museum.
+    <br>
+    Boston is also home to some of the most prestigious universities in the world, including Harvard 
+    University and the Massachusetts Institute of Technology (MIT), as well as many other top-ranked 
+    colleges and universities.
+    <br>
+    The city has a vibrant culture, with a thriving arts and music scene, numerous museums and 
+    galleries, and a diverse population that contributes to its unique character. Boston is also 
+    known for its seafood cuisine, particularly its clam chowder and lobster dishes.
+    <br>
+    Overall, Boston is a dynamic city that offers a mix of history, culture, and innovation, 
+    making it a popular destination for visitors from around the world.
+  
+    Let Start by creating your list of places to visit: <a href="{{ url_for('create')}}">Create a post</a>
         
     {% for doc in docs %}
     <div>
