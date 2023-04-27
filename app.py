@@ -48,28 +48,6 @@ def home():
     """
     return render_template('index.html')
 
-# @app.route('/boston')
-# def boston():
-#     """
-#     Route for GET requests to the create page.
-#     Displays a form users can fill out to create a new document.
-#     """
-#     return render_template('boston.html') # render the create template
-
-# @app.route('/boston', methods=['POST'])
-# def vac_boston ():
-#     place = request.form['placeb']
-#     address = request.form['addressb']
-#     # create a new document with the data the user entered
-#     doc = {
-#         # "_id": ObjectId(mongoid), 
-#         "place": place, 
-#         "address": address, 
-#     }
-#     db.boston.insert_one(doc) # insert a new document
-
-#     return redirect(url_for('home'))
-
 
 @app.route('/create')
 def create():
@@ -146,9 +124,6 @@ def delete(mongoid):
 
 
 
-
-
-
 @app.route('/read')
 def read():
     """
@@ -156,7 +131,7 @@ def read():
     Displays some information for the user with links to other pages.
     """
     docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    return render_template('read.html', docs=docs) # render the read template
+    return render_template('read.html') # render the read template
 
 
 
