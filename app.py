@@ -63,8 +63,8 @@ def create_post():
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
-    name = request.form['fname']
-    message = request.form['fmessage']
+    name = request.form['place']
+    message = request.form['address']
 
 
     # create a new document with the data the user entered
@@ -94,8 +94,8 @@ def edit_post(mongoid):
     Route for POST requests to the edit page.
     Accepts the form submission data for the specified document and updates the document in the database.
     """
-    name = request.form['fname']
-    message = request.form['fmessage']
+    name = request.form['place']
+    message = request.form['address']
 
     doc = {
         # "_id": ObjectId(mongoid), 
