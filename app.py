@@ -92,7 +92,6 @@ def create_post():
         # "_id": ObjectId(mongoid), 
         "place": place, 
         "address": address, 
-        "created_at": datetime.datetime.utcnow()
     }
     db.boston.insert_one(doc) # insert a new document
 
@@ -122,7 +121,6 @@ def edit_post(mongoid):
         # "_id": ObjectId(mongoid), 
         "place": place, 
         "address": address, 
-        "created_at": datetime.datetime.utcnow()
     }
     db.boston.insert_one(doc) # insert a new document 
 
