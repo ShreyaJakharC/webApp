@@ -3,12 +3,12 @@
 <p>Edit a record in the MongoDB database collection.</p>
 <form method="POST" action="{{ url_for('edit_post', mongoid=mongoid) }}">
   <p>
-    Application:
-    <input type="text" id="fapplication" name="fapplication" value="{{doc.application}}" /><br />
+    Place:
+    <input type="text" id="placeb" name="placeb" value="{{doc.placeb}}" /><br />
   </p>
   <p>
-    Message:
-    <textarea id="fmessage" name="fmessage">{{doc.message}}</textarea>
+    Address:
+    <textarea id="addressb" name="addressb">{{doc.addressb}}</textarea>
   </p>
   <p>
     <a href="{{ url_for('read')}}">Cancel</a>
