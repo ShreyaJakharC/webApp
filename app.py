@@ -71,7 +71,7 @@ def create_post():
         # "_id": ObjectId(mongoid), 
         "name": name,
         "place": place, 
-        "message": address, 
+        "address": address, 
         "created_at": datetime.datetime.utcnow()
     }
     db.boston1.insert_one(doc) # insert a new document
@@ -103,7 +103,7 @@ def edit_post(mongoid):
         # "_id": ObjectId(mongoid), 
         "name": name,
         "place": place, 
-        "message": address, 
+        "address": address, 
         "created_at": datetime.datetime.utcnow()
     }
 
@@ -124,24 +124,7 @@ def delete(mongoid):
     db.boston1.delete_one({"_id": ObjectId(mongoid)})
     return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    """
-    GitHub can be configured such that each time a push is made to a repository, GitHub will make a request to a particular web URL... this is called a webhook.
-    This function is set up such that if the /webhook route is requested, Python will execute a git pull command from the command line to update this app's codebase.
-    You will need to configure your own repository to have a webhook that requests this route in GitHub's settings.
-    Note that this webhook does do any verification that the request is coming from GitHub... this should be added in a production environment.
-    """
-    # run a git pull command
-    process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
-    pull_output = process.communicate()[0]
-    # pull_output = str(pull_output).strip() # remove whitespace
-    process = subprocess.Popen(["chmod", "a+x", "flask.cgi"], stdout=subprocess.PIPE)
-    chmod_output = process.communicate()[0]
-    # send a success response
-    response = make_response('output: {}'.format(pull_output), 200)
-    response.mimetype = "text/plain"
-    return response
+
 
 @app.errorhandler(Exception)
 def handle_error(e):

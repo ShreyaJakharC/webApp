@@ -2,30 +2,70 @@
 <html>
   <head>
     <title>Travel List</title>
-    <link
+    <!-- <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
-    />
+    /> -->
   </head>
   <body>
+    <style>
+      body{
+background-color: rgb(29, 29, 29);
+}
+.container {
+background-color: rgb(225, 228, 232);
+/* background-image: url("/images/boston.jpg"); */
+width: 70%;
+height: 50%;
+margin: 0 auto;
+font-family: Helvetica;
+}
+
+h1{
+font-size: 30px;
+text-align: center;
+align-items: center;
+font-family: Helvetica;
+color:  rgb(93, 35, 106);
+
+}
+
+header {
+text-align: center;
+/* border-bottom: 1px solid black; */
+padding-bottom: 5px;
+}
+footer,
+main {
+padding: 20px;
+}
+p.post {
+font-size: 16px;
+}
+
+footer {
+margin-top: 40%;
+margin-bottom: 2px;
+}
+</style>
     <div class="container">
       <header>
         <h1>Travel List to Boston</h1>
         <p>
+          <hr>
           <a href="{{ url_for('home')}}">Home</a> |
           <a href="{{ url_for('read')}}">Boston</a> |
-          <!-- <a href="{{ url_for('create')}}">Create a post</a> -->
+          <a href="{{ url_for('create')}}">Add Place</a>
+          <hr>
         </p>
       </header>
       <main>{% block container %} {% endblock %}</main>
-      <!-- <footer>
+      <footer>
         <p>
-          The source code for this example app is
-          <a href="https://github.com/nyu-database-design/flask-mongodb-example"
-            >available on Github</a
-          >.
+          <hr>
+          Having any trouble? Contact XX-XXXX-XXXX.
         </p>
-      </footer> -->
+        </footer>
     </div>
   </body>
 </html>

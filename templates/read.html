@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Read</h2>
+<style>
+h2{
+font-size: 30px;
+text-align: center;
+align-items: center;
+font-family: Helvetica;
+color:  rgb(93, 35, 106);
+}
+h4{
+font-size: 20px;
+text-align: center;
+align-items: center;
+font-family: Helvetica;
+
+}
+    </style>
+<h2>WOOOHOOO Boston!!!!!!</h2>
 <p>
     Boston is a historic city located in the northeastern region of the United States, in the state 
     of Massachusetts. It is the capital city of Massachusetts and is one of the oldest cities in the 
@@ -27,8 +43,10 @@
     Overall, Boston is a dynamic city that offers a mix of history, culture, and innovation, 
     making it a popular destination for visitors from around the world.
   
-    Let Start by creating your list of places to visit: <a href="{{ url_for('create')}}">Add the Hidden Gems by clicking the link.</a>
+    <h4> <a href="{{ url_for('create')}}">ADD NEW PLACE</a></h4>
         
+
+    <h2> Here are the places to visit in Boston:</a></h2>
     {% for doc in docs %}
     <div>
         <hr class="solid">
@@ -39,7 +57,7 @@
         <p>{{doc.address}}</p>
       
         <br/>
-            <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
+            <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             <br/>
     </div>
     {%endfor%}
