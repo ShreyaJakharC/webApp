@@ -89,32 +89,6 @@ def edit(mongoid):
     return render_template('edit.html', mongoid=mongoid, doc=doc) # render the edit template
 
 
-@app.route('/edit/<mongoid>', methods=['POST'])
-def edit_post(mongoid):
-    """
-    Route for POST requests to the edit page.
-    Accepts the form submission data for the specified document and updates the document in the database.
-    """
-    name = request.form['name']
-    place = request.form['place']
-    address = request.form['address']
-
-    doc = {
-        # "_id": ObjectId(mongoid), 
-        "name": name,
-        "place": place, 
-        "address": address, 
-        "created_at": datetime.datetime.utcnow()
-    }
-
-    db.boston1.update_one(
-        {"_id": ObjectId(mongoid)}, # match criteria
-        { "$set": doc }
-    )
-
-    return redirect(url_for('read')) # tell the browser to make a request for the /read route
-
-
 @app.route('/delete/<mongoid>')
 def delete(mongoid):
     """
