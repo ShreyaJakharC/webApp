@@ -1,16 +1,15 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    
-    <title> Travel List</title>
-    
+    <title>Flask-MongoDB Example App</title>
     <link
       rel="stylesheet"
-      href="/static/style.css"
+      href="{{ url_for('static', filename='css/style.css') }}"
     />
   </head>
   <body>
-    <style>
+<style>
         body{
   background-color: rgb(103, 98, 210);
 }
@@ -52,24 +51,24 @@ footer {
   margin-bottom: 2px;
 }
 </style>
-    <div class="container" style="border: 0;">
-      <header>
-        <h1 style="text-align: center";>Travel List</h1>
-        <hr> 
-        <p>
-          <a href="{{ url_for('home')}}">Home</a> |
-          <a href="{{ url_for('create')}}">Boston</a>
-        </p>
-        <hr> 
-      </header>
-      <main>{% block container %} {% endblock %}</main>
-      
-      <footer>
-      <p>
-        <hr>
-        Having any trouble? Contact XX-XXXX-XXXX.
-      </p>
-      </footer>
-    </div>
-  </body>
+<div class="container">
+  <header>
+    <h1>Flask-MongoDB Example App</h1>
+    <p>
+      <a href="{{ url_for('home')}}">Home</a> |
+      <a href="{{ url_for('read')}}">All posts</a> |
+      <a href="{{ url_for('create')}}">Create a post</a>
+    </p>
+  </header>
+  <main>{% block container %} {% endblock %}</main>
+  <footer>
+    <p>
+      The source code for this example app is
+      <a href="https://github.com/nyu-database-design/flask-mongodb-example"
+        >available on Github</a
+      >.
+    </p>
+  </footer>
+</div>
+</body>
 </html>
