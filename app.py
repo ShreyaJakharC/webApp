@@ -153,8 +153,8 @@ def read():
     Route for GET requests to the read page.
     Displays some information for the user with links to other pages.
     """
-    docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    return render_template('read.html', docs=docs) # render the read template
+    # docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    return render_template('read.html') # render the read template
 
 
 
