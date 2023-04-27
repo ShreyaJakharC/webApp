@@ -44,7 +44,7 @@ def read():
     Route for GET requests to the read page.
     Displays some information for the user with links to other pages.
     """
-    docs = db.exampleapp.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    docs = db.boston1.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
     return render_template('read.html', docs=docs) # render the read template
 
 
@@ -63,17 +63,18 @@ def create_post():
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
-    name = request.form['place']
-    message = request.form['address']
+    name = request.form['name']
+    place = request.form['place']
+    address = request.form['address']
 
-
-    # create a new document with the data the user entered
     doc = {
+        # "_id": ObjectId(mongoid), 
         "name": name,
-        "message": message, 
+        "place": place, 
+        "message": address, 
         "created_at": datetime.datetime.utcnow()
     }
-    db.exampleapp.insert_one(doc) # insert a new document
+    db.boston1.insert_one(doc) # insert a new document
 
     return redirect(url_for('read')) # tell the browser to make a request for the /read route
 
@@ -84,7 +85,7 @@ def edit(mongoid):
     Route for GET requests to the edit page.
     Displays a form users can fill out to edit an existing record.
     """
-    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
+    doc = db.boston1.find_one({"_id": ObjectId(mongoid)})
     return render_template('edit.html', mongoid=mongoid, doc=doc) # render the edit template
 
 
@@ -94,17 +95,19 @@ def edit_post(mongoid):
     Route for POST requests to the edit page.
     Accepts the form submission data for the specified document and updates the document in the database.
     """
-    name = request.form['place']
-    message = request.form['address']
+    name = request.form['name']
+    place = request.form['place']
+    address = request.form['address']
 
     doc = {
         # "_id": ObjectId(mongoid), 
-        "name": name, 
-        "message": message, 
+        "name": name,
+        "place": place, 
+        "message": address, 
         "created_at": datetime.datetime.utcnow()
     }
 
-    db.exampleapp.update_one(
+    db.boston1.update_one(
         {"_id": ObjectId(mongoid)}, # match criteria
         { "$set": doc }
     )
@@ -118,7 +121,7 @@ def delete(mongoid):
     Route for GET requests to the delete page.
     Deletes the specified record from the database, and then redirects the browser to the read page.
     """
-    db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
+    db.boston1.delete_one({"_id": ObjectId(mongoid)})
     return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
 
 @app.route('/webhook', methods=['POST'])
