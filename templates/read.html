@@ -6,7 +6,7 @@
     Massachusetts and is home to many iconic landmarks and institutions, such as Harvard University, Fenway Park, and the Freedom Trail. The city played a significant role in the American Revolution and is known for its rich 
     history, which can be seen in the many museums and historical sites throughout the city. Boston is also famous for its sports teams, including the Boston Red Sox and the Boston Celtics. The city is known for its diverse neighborhoods, each with its own distinct character and culture. 
     Boston is a vibrant city with a bustling downtown, top-notch restaurants, and a thriving arts scene. Overall, Boston is a city that has something to offer for everyone and is a great destination for history buffs, sports fans, foodies, and culture seekers alike.
-    To add places, places are:
+    To add places, places are: <a href="{{ url_for('create')}}">Create List</a>
         
     {% for doc in docs %}
     <div>
@@ -15,7 +15,7 @@
             Posted by {{doc.placeb}}
             {{ doc.addressb }}
             </br>
-            <a href="{{ url_for('create')}}">Create List</a>
+            
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             </br>
             
