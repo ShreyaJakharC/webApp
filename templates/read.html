@@ -1,9 +1,11 @@
+read.html
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Boston</h2>
-<p>As our new AI would describe, Boston
-
+<h2>Read</h2>
+<p>This page shows information pulled from a MongoDB database collection.
+        
+    {% for doc in docs %}
     <div>
         <hr class="solid">
         <p class="post">
@@ -13,7 +15,7 @@
             </br>
         </p>
         <p>
-            {{ doc.addressb }}
+            {{doc.addressb}}
         </p>
             
     </div>

@@ -1,22 +1,15 @@
+create.html
 {% extends 'base.html' %} {% block container %}
-<h2>Boston</h2>
-<p>As our new AI would describe, Boston is a historic city located in the northeastern part of the United States. It is the capital of the state of 
-  Massachusetts and is home to many iconic landmarks and institutions, such as Harvard University, Fenway Park, and the Freedom Trail. The city played a significant role in the American Revolution and is known for its rich 
-  history, which can be seen in the many museums and historical sites throughout the city. Boston is also famous for its sports teams, including the Boston Red Sox and the Boston Celtics. The city is known for its diverse neighborhoods, each with its own distinct character and culture. 
-  Boston is a vibrant city with a bustling downtown, top-notch restaurants, and a thriving arts scene. Overall, Boston is a city that has something to offer for everyone and is a great destination for history buffs, sports fans, foodies, and culture seekers alike.
-  To add places, please add below:
-
+<h2>Create</h2>
+<p>Create a new record in the MongoDB database collection.</p>
 <form method="POST" action="{{ url_for('create_post') }}">
-  
-  <p>Place: <input type="text" id="placeb" name="placeb" /><br /></p>
-  
+  <p>Your name: <input type="text" id="placeb" name="placeb" /><br /></p>
   <p>
-    Address:
+    Message:
     <textarea type="text" id="addressb" name="addressb"></textarea>
   </p>
   <p>
-    <!-- <a href="{{ url_for('read')}}">Cancel</a> -->
+    <a href="{{ url_for('read')}}">Cancel</a>
     <input type="submit" name="post-btn" value="Post" />
   </p>
 </form>
-{% endblock %}
