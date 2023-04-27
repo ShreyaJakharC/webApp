@@ -15,6 +15,7 @@
             Posted by {{doc.placeb}}
             {{ doc.addressb }}
             </br>
+            <a href="{{ url_for('create')}}">Create List</a>
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             </br>
             
