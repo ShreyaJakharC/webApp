@@ -95,7 +95,7 @@ def create_post():
     }
     db.boston.insert_one(doc) # insert a new document
 
-    return redirect(url_for('create')) # tell the browser to make a request for the /read route
+    return redirect(url_for('read')) # tell the browser to make a request for the /read route
 
 
 @app.route('/edit/<mongoid>')
@@ -131,7 +131,7 @@ def edit_post(mongoid):
         { "$set": doc }
     )
 
-    return redirect(url_for('create')) # tell the browser to make a request for the /read route
+    return redirect(url_for('read')) # tell the browser to make a request for the /read route
 
 
 @app.route('/delete/<mongoid>')
@@ -141,7 +141,7 @@ def delete(mongoid):
     Deletes the specified record from the database, and then redirects the browser to the read page.
     """
     db.boston.delete_one({"_id": ObjectId(mongoid)})
-    return redirect(url_for('create')) # tell the web browser to make a request for the /read route.
+    return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
 
 
 
