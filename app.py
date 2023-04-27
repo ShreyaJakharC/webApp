@@ -8,12 +8,11 @@ import datetime
 from bson.objectid import ObjectId
 import os
 import subprocess
-
-
-
+#import bcrypt
 
 # instantiate the app
 app = Flask(__name__)
+
 
 
 # load credentials and configuration options from .env file
@@ -49,71 +48,27 @@ def home():
     """
     return render_template('index.html')
 
+# @app.route('/boston')
+# def boston():
+#     """
+#     Route for GET requests to the create page.
+#     Displays a form users can fill out to create a new document.
+#     """
+#     return render_template('boston.html') # render the create template
 
-@app.route('/read')
-def read():
-    """
-    Route for GET requests to the read page.
-    Displays some information for the user with links to other pages.
-    """
-    docs = db.exampleapp.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    return render_template('read.html', docs=docs) # render the read template
+# @app.route('/boston', methods=['POST'])
+# def vac_boston ():
+#     place = request.form['placeb']
+#     address = request.form['addressb']
+#     # create a new document with the data the user entered
+#     doc = {
+#         # "_id": ObjectId(mongoid), 
+#         "place": place, 
+#         "address": address, 
+#     }
+#     db.boston.insert_one(doc) # insert a new document
 
-
-@app.route('/signin')
-def signin():
-    """
-    Route for GET requests to the create page.
-    Displays a form users can fill out to create a new document.
-    """
-    return render_template('signin.html') # render the create template
-
-@app.route('/signin', methods=['POST'])
-def create_signin():
-    """
-    Route for POST requests to the create page.
-    Accepts the form submission data for a new document and saves the document to the database.
-    """
-    users = pymongo.MongoClient
-    email = request.form['semail']
-    password = request.form['sloginpassword']
-    
-    user = users.db.info.find_one({'username': email, 'password': password})
-
-    if user:
-        # Redirect to the home page
-        return redirect(url_for('create'))
-    else:
-        # Show an error message
-        return render_template('login.html', error='Invalid email or password')
-
-
-@app.route('/login')
-def login():
-    """
-    Route for GET requests to the create page.
-    Displays a form users can fill out to create a new document.
-    """
-    return render_template('login.html') # render the create template
-
-
-@app.route('/login', methods=['POST'])
-def create_login():
-    """
-    Route for POST requests to the create page.
-    Accepts the form submission data for a new document and saves the document to the database.
-    """
-    email = request.form['femail']
-    password = request.form['floginpassword']
-    # create a new document with the data the user entered
-    users = {
-        # "_id": ObjectId(mongoid), 
-        "email": email, 
-        "password": password, 
-    }
-    db.info.insert_one(users) # insert a new document
-    return redirect(url_for('home')) # tell the browser to make a request for the /read route
-
+#     return redirect(url_for('home'))
 
 
 @app.route('/create')
@@ -124,28 +79,23 @@ def create():
     """
     return render_template('create.html') # render the create template
 
-@app.route('/create', methods=['POST'])
+@app.route('/boston/create', methods=['POST'])
 def create_post():
     """
     Route for POST requests to the create page.
     Accepts the form submission data for a new document and saves the document to the database.
     """
-    username = request.form["fusername"]
-    name = request.form['fapplication']
-    message = request.form['fmessage']
-
-
-
+    place = request.form['placeb']
+    address = request.form['addressb']
     # create a new document with the data the user entered
     doc = {
-        "username": username,
-        "name": name,
-        "message": message, 
-        "created_at": datetime.datetime.utcnow()
+        # "_id": ObjectId(mongoid), 
+        "place": place, 
+        "address": address, 
     }
-    db.exampleapp.insert_one(doc) # insert a new document
+    db.boston.insert_one(doc) # insert a new document
 
-    return redirect(url_for('read')) # tell the browser to make a request for the /read route
+    return redirect(url_for('create')) # tell the browser to make a request for the /read route
 
 
 @app.route('/edit/<mongoid>')
@@ -154,7 +104,7 @@ def edit(mongoid):
     Route for GET requests to the edit page.
     Displays a form users can fill out to edit an existing record.
     """
-    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
+    doc = db.boston.find_one({"_id": ObjectId(mongoid)})
     return render_template('edit.html', mongoid=mongoid, doc=doc) # render the edit template
 
 
@@ -164,25 +114,24 @@ def edit_post(mongoid):
     Route for POST requests to the edit page.
     Accepts the form submission data for the specified document and updates the document in the database.
     """
-    username = request.form["fusername"]
-    name = request.form['fapplication']
-    message = request.form['fmessage']
-    
-
+    place = request.form['placeb']
+    address = request.form['addressb']
+    # create a new document with the data the user entered
     doc = {
         # "_id": ObjectId(mongoid), 
-        "username": username,
-        "name": name, 
-        "message": message, 
+        "place": place, 
+        "address": address, 
         "created_at": datetime.datetime.utcnow()
     }
+    db.boston.insert_one(doc) # insert a new document 
 
-    db.exampleapp.update_one(
+
+    db.boston.update_one(
         {"_id": ObjectId(mongoid)}, # match criteria
         { "$set": doc }
     )
 
-    return redirect(url_for('read')) # tell the browser to make a request for the /read route
+    return redirect(url_for('create')) # tell the browser to make a request for the /read route
 
 
 @app.route('/delete/<mongoid>')
@@ -191,28 +140,163 @@ def delete(mongoid):
     Route for GET requests to the delete page.
     Deletes the specified record from the database, and then redirects the browser to the read page.
     """
-    db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
-    return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
+    db.boston.delete_one({"_id": ObjectId(mongoid)})
+    return redirect(url_for('create')) # tell the web browser to make a request for the /read route.
 
 
-@app.route('/webhook', methods=['POST'])
-def webhook():
+
+
+
+
+@app.route('/read')
+def read():
     """
-    GitHub can be configured such that each time a push is made to a repository, GitHub will make a request to a particular web URL... this is called a webhook.
-    This function is set up such that if the /webhook route is requested, Python will execute a git pull command from the command line to update this app's codebase.
-    You will need to configure your own repository to have a webhook that requests this route in GitHub's settings.
-    Note that this webhook does do any verification that the request is coming from GitHub... this should be added in a production environment.
+    Route for GET requests to the read page.
+    Displays some information for the user with links to other pages.
     """
-    # run a git pull command
-    process = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE)
-    pull_output = process.communicate()[0]
-    # pull_output = str(pull_output).strip() # remove whitespace
-    process = subprocess.Popen(["chmod", "a+x", "flask.cgi"], stdout=subprocess.PIPE)
-    chmod_output = process.communicate()[0]
-    # send a success response
-    response = make_response('output: {}'.format(pull_output), 200)
-    response.mimetype = "text/plain"
-    return response
+    docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    return render_template('read.html', docs=docs) # render the read template
+
+
+
+# @app.route('/signin')
+# def signin():
+#     """
+#     Route for GET requests to the create page.
+#     Displays a form users can fill out to create a new document.
+#     """
+#     return render_template('signin.html') # render the create template
+
+# @app.route('/signin', methods=['POST'])
+# def create_signin():
+#     """
+#     Route for POST requests to the create page.
+#     Accepts the form submission data for a new document and saves the document to the database.
+#     """
+    
+#     email1 = request.form['semail']
+#     password = request.form['sloginpassword']
+    
+#     user = db.info.find_one({'username': email1})
+
+#     if user:
+#         '''
+#         if bcrypt.hashpw(password.encode("utf-8"), user["password"].encode("utf-8")) == user["password"].encode("utf-8"):
+#         # Redirect to the home page
+#         '''
+#         return redirect(url_for('home'))
+#     else:
+#         # Show an error message
+#         return render_template('create.html', error='Invalid email or password')
+
+
+# @app.route('/login')
+# def login():
+#     """
+#     Route for GET requests to the create page.
+#     Displays a form users can fill out to create a new document.
+#     """
+#     return render_template('login.html') # render the create template
+
+
+# @app.route('/login', methods=['POST'])
+# def create_login():
+#     """
+#     Route for POST requests to the create page.
+#     Accepts the form submission data for a new document and saves the document to the database.
+#     """
+#     email = request.form['femail']
+#     password = request.form['floginpassword']
+#     # create a new document with the data the user entered
+#     users = {
+#         # "_id": ObjectId(mongoid), 
+#         "email": email, 
+#         "password": password, 
+#     }
+#     db.info.insert_one(users) # insert a new document
+#     return redirect(url_for('home')) # tell the browser to make a request for the /read route
+
+
+
+# @app.route('/create')
+# def create():
+#     """
+#     Route for GET requests to the create page.
+#     Displays a form users can fill out to create a new document.
+#     """
+#     return render_template('create.html') # render the create template
+
+# @app.route('/create', methods=['POST'])
+# def create_post():
+#     """
+#     Route for POST requests to the create page.
+#     Accepts the form submission data for a new document and saves the document to the database.
+#     """
+#     username = request.form["fusername"]
+#     name = request.form['fapplication']
+#     message = request.form['fmessage']
+
+#     # create a new document with the data the user entered
+#     doc = {
+#         "username": username,
+#         "name": name,
+#         "message": message, 
+#         "created_at": datetime.datetime.utcnow()
+#     }
+    
+#     db.exampleapp.insert_one(doc) # insert a new document
+
+#     return redirect(url_for('read')) # tell the browser to make a request for the /read route
+
+
+# @app.route('/edit/<mongoid>')
+# def edit(mongoid):
+#     """
+#     Route for GET requests to the edit page.
+#     Displays a form users can fill out to edit an existing record.
+#     """
+#     doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
+#     return render_template('edit.html', mongoid=mongoid, doc=doc) # render the edit template
+
+
+# @app.route('/edit/<mongoid>', methods=['POST'])
+# def edit_post(mongoid):
+#     """
+#     Route for POST requests to the edit page.
+#     Accepts the form submission data for the specified document and updates the document in the database.
+#     """
+#     username = request.form["fusername"]
+#     name = request.form['fapplication']
+#     message = request.form['fmessage']
+    
+
+#     doc = {
+#         # "_id": ObjectId(mongoid), 
+#         "username": username,
+#         "name": name, 
+#         "message": message, 
+#         "created_at": datetime.datetime.utcnow()
+#     }
+
+#     db.exampleapp.update_one(
+#         {"_id": ObjectId(mongoid)}, # match criteria
+#         { "$set": doc }
+#     )
+
+#     return redirect(url_for('read')) # tell the browser to make a request for the /read route
+
+
+# @app.route('/delete/<mongoid>')
+# def delete(mongoid):
+#     """
+#     Route for GET requests to the delete page.
+#     Deletes the specified record from the database, and then redirects the browser to the read page.
+#     """
+#     db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
+#     return redirect(url_for('read')) # tell the web browser to make a request for the /read route.
+
+
+
 
 @app.errorhandler(Exception)
 def handle_error(e):

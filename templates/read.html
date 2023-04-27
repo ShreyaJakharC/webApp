@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Read</h2>
-<p>This page shows information pulled from a MongoDB database collection.
+<h2>Boston</h2>
+<p>As our new AI would describe, Boston is a historic city located in the northeastern part of the United States. It is the capital of the state of 
+    Massachusetts and is home to many iconic landmarks and institutions, such as Harvard University, Fenway Park, and the Freedom Trail. The city played a significant role in the American Revolution and is known for its rich 
+    history, which can be seen in the many museums and historical sites throughout the city. Boston is also famous for its sports teams, including the Boston Red Sox and the Boston Celtics. The city is known for its diverse neighborhoods, each with its own distinct character and culture. 
+    Boston is a vibrant city with a bustling downtown, top-notch restaurants, and a thriving arts scene. Overall, Boston is a city that has something to offer for everyone and is a great destination for history buffs, sports fans, foodies, and culture seekers alike.
+    To add places, places are:
         
     {% for doc in docs %}
     <div>
         <hr class="solid">
         <p class="post">
-            Posted by {{doc.application}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
+            Posted by {{doc.placeb}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
             </br>
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             </br>
         </p>
         <p>
-            {{ doc.message }}
+            {{ doc.addressb }}
         </p>
             
     </div>

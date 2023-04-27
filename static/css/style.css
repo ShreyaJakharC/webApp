@@ -1,10 +1,24 @@
+body{
+  background-color: red;
+}
+
 .container {
-  border: 2px solid;
+ 
   width: 50%;
   margin: 0 auto;
 }
 
-header,
+h1{
+
+  text-align: center;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+  /* border-bottom: 1px solid black; */
+  padding-bottom: 10px;
+}
 footer,
 main {
   padding: 20px;
@@ -12,14 +26,14 @@ main {
 
 header,
 main {
-  border-bottom: 2px solid;
-  margin-bottom: 5px;
+  /* border-bottom: 2px solid;
+  margin-bottom: 5px; */
 }
 
 p.post {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 footer {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }

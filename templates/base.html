@@ -1,25 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Safe Vault</title>
+    
+    <title> Travel List</title>
+    
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
+      href="/static/style.css"
     />
   </head>
   <body>
-    <div class="container">
+    <style>
+        body{
+  background-color: rgb(103, 98, 210);
+}
+
+.container {
+  background-color: rgb(225, 228, 232);
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1{
+
+  text-align: center;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+  /* border-bottom: 1px solid black; */
+  padding-bottom: 10px;
+}
+footer,
+main {
+  padding: 20px;
+}
+
+header,
+main {
+  /* border-bottom: 2px solid;
+  margin-bottom: 5px; */
+}
+
+p.post {
+  font-size: 16px;
+}
+
+footer {
+  margin-top: 40%;
+  margin-bottom: 2px;
+}
+</style>
+    <div class="container" style="border: 0;">
       <header>
-        <h1>Safe Vault</h1>
+        <h1 style="text-align: center";>Travel List</h1>
+        <hr> 
         <p>
           <a href="{{ url_for('home')}}">Home</a> |
-          <a href="{{ url_for('login')}}">Create Login</a> |
-          <a href="{{ url_for('signin')}}">Sign-In</a>
+          <a href="{{ url_for('create')}}">Boston</a>
         </p>
+        <hr> 
       </header>
       <main>{% block container %} {% endblock %}</main>
+      
       <footer>
       <p>
+        <hr>
         Having any trouble? Contact XX-XXXX-XXXX.
       </p>
       </footer>
