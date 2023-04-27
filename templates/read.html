@@ -36,11 +36,9 @@
             Posted by {{doc.name}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
         </p>
         <p>
-        {{ doc.place }}
+        {{ doc.place and doc.address }}
        </p>
-       <p>
-       {{ doc.address }}
-        </p>
+      
 
         <br/>
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
