@@ -1,5 +1,5 @@
 body{
-  background-color: red;
+  background-color: rgb(224, 208, 208);
 }
 
 .container {
@@ -26,8 +26,8 @@ main {
 
 header,
 main {
-  /* border-bottom: 2px solid;
-  margin-bottom: 5px; */
+  border-bottom: 2px solid;
+  margin-bottom: 5px;
 }
 
 p.post {
