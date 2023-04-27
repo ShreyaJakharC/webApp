@@ -13,10 +13,11 @@
         <hr class="solid">
         <p class="post">
             Posted by {{doc.placeb}}
+            {{ doc.addressb }}
             </br>
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             </br>
-            {{ doc.addressb }}
+            
         </p>
             
     </div>

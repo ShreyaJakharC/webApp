@@ -79,7 +79,7 @@ def create():
     """
     return render_template('create.html') # render the create template
 
-@app.route('/boston/create', methods=['POST'])
+@app.route('/create', methods=['POST'])
 def create_post():
     """
     Route for POST requests to the create page.
