@@ -79,7 +79,7 @@ def create():
     """
     return render_template('create.html') # render the create template
 
-@app.route('/create', methods=['POST'])
+@app.route('/boston/create', methods=['POST'])
 def create_post():
     """
     Route for POST requests to the create page.
@@ -92,6 +92,7 @@ def create_post():
         # "_id": ObjectId(mongoid), 
         "place": place, 
         "address": address, 
+        "created_at": datetime.datetime.utcnow()
     }
     db.boston.insert_one(doc) # insert a new document
 
@@ -121,6 +122,7 @@ def edit_post(mongoid):
         # "_id": ObjectId(mongoid), 
         "place": place, 
         "address": address, 
+        "created_at": datetime.datetime.utcnow()
     }
     db.boston.insert_one(doc) # insert a new document 
 
@@ -153,8 +155,8 @@ def read():
     Route for GET requests to the read page.
     Displays some information for the user with links to other pages.
     """
-    # docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
-    return render_template('read.html') # render the read template
+    docs = db.boston.find({}).sort("created_at", -1) # sort in descending order of created_at timestamp
+    return render_template('read.html', docs=docs) # render the read template
 
 
 
