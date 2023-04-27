@@ -11,15 +11,14 @@
     {% for doc in docs %}
     <div>
         <hr class="solid">
-        <p class="post">
-            Posted by {{doc.placeb}}
+         class="post">
+            {{doc.placeb}}
             {{ doc.addressb }}
             </br>
-            
             <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
             </br>
             
-        </p>
+        
             
     </div>
     {%endfor%}
